@@ -1,15 +1,15 @@
-"""Tests for the XGIC CLI scaffold entrypoint."""
+"""Tests for the XGIC CLI entrypoint and framework."""
 
 from __future__ import annotations
 
 import pytest
 
 from xgic.cli import __version__
-from xgic.cli.__main__ import build_parser, main
+from xgic.cli.app import build_parser, main
 
 
 def test_version_constant() -> None:
-    assert __version__ == "0.1.0"
+    assert __version__ == "0.2.0"
 
 
 def test_help_exits_zero() -> None:
@@ -32,4 +32,11 @@ def test_unknown_command_errors() -> None:
 
 
 def test_parser_prog() -> None:
-    assert build_parser().prog == "xgic"
+    assert build_parser(include_plugins=False).prog == "xgic"
+
+
+def test_info_command(capsys: pytest.CaptureFixture[str]) -> None:
+    rc = main(["info"])
+    assert rc == 0
+    out = capsys.readouterr().out
+    assert "Environment" in out or "Local host" in out or "Dev Container" in out
