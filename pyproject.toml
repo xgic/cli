@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "xgic-cli"
-version = "0.1.0"
+version = "0.2.0"
 description = "XGIC CLI — modular command-line framework for XGIC tools and environment orchestration (core package)."
 readme = "README.md"
 license = { text = "Apache-2.0" }
@@ -12,16 +12,18 @@ authors = [
     { name = "XGIC" }
 ]
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "rich>=13.7",
+]
 keywords = [
     "xgic",
     "cli",
-    "orchestration",
-    "dev-containers",
+    "framework",
     "automation",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
+    "Environment :: Console",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
