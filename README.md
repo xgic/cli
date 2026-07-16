@@ -16,6 +16,11 @@ Architecture: [ADR-0005 - Modular XGIC CLI](https://github.com/xgic/ai/blob/main
 
 Multi-repo standards: [xgic/ai](https://github.com/xgic/ai).
 
+**Publishing to PyPI:** follow the hub standard  
+[python-package-release.md](https://github.com/xgic/ai/blob/main/docs/python-package-release.md)  
+(TestPyPI RC + smoke → PyPI via OIDC Trusted Publishing; `uv` build/smoke).  
+Tags: `vX.Y.ZrcN` → TestPyPI; `vX.Y.Z` → PyPI. Requires GitHub Environments `testpypi` / `pypi` and matching Trusted Publishers on the index.
+
 ## Status
 
 **0.2.0 — thin core.** Framework + environment detection + output helpers. Domain modules ship separately.
