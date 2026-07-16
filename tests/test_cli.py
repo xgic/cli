@@ -40,3 +40,9 @@ def test_info_command(capsys: pytest.CaptureFixture[str]) -> None:
     assert rc == 0
     out = capsys.readouterr().out
     assert "Environment" in out or "Local host" in out or "Dev Container" in out
+
+
+def test_help_mentions_domain_modules(capsys: pytest.CaptureFixture[str]) -> None:
+    main([])
+    out = capsys.readouterr().out
+    assert "xgic.cli.commands" in out or "entry points" in out.lower() or "Domain" in out

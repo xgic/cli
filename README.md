@@ -2,17 +2,23 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-**XGIC CLI** is the modular command-line framework for XGIC tools and environment orchestration.
+**XGIC CLI** is the modular command-line framework for XGIC tools.
 
-This repository is the **core** package (`xgic.cli`, console entry **`xgic`**). Domain modules (for example Dev Container / environment helpers and Payload CMS commands) will ship as separate packages under `xgic.cli.*`.
+This repository is the **thin core** package (`xgic.cli`, console entry **`xgic`**). It is **product-agnostic**: no Payload CMS or Dev Container orchestration implementations live here.
 
-Architecture decision: [ADR-0005 - Modular XGIC CLI](https://github.com/xgic/ai/blob/main/docs/adr/0005-modular-xgic-cli-and-retirement-of-xde.md).
+| Package | Namespace | Repository |
+|---------|-----------|------------|
+| Core (this repo) | `xgic.cli` | [xgic/cli](https://github.com/xgic/cli) |
+| Dev Container / env | `xgic.cli.dev` | [xgic/dev-cli](https://github.com/xgic/dev-cli) |
+| Payload CMS | `xgic.cli.payload` | [xgic/payload-cms-cli](https://github.com/xgic/payload-cms-cli) |
+
+Architecture: [ADR-0005 - Modular XGIC CLI](https://github.com/xgic/ai/blob/main/docs/adr/0005-modular-xgic-cli-and-retirement-of-xde.md).
 
 Multi-repo standards: [xgic/ai](https://github.com/xgic/ai).
 
 ## Status
 
-**0.2.0 — shared core library extract (Phase B2).** Installable framework + importable core APIs. Domain subcommands (lifecycle, Payload CMS, etc.) land in later modules. Product templates may still ship a transitional in-tree surface until hard cutover.
+**0.2.0 — thin core.** Framework + environment detection + output helpers. Domain modules ship separately.
 
 ## Requirements
 
@@ -35,29 +41,23 @@ xgic info
 | `xgic --version` | Package version |
 | `xgic info` | Detected execution environment summary |
 
-Domain modules register additional subcommands via the entry point group **`xgic.cli.commands`**.
+Domain packages register additional subcommands via entry point group **`xgic.cli.commands`**.
 
-## Library API (shared core)
-
-Importable surface for modules and automation:
+## Library API (core only)
 
 ```python
-from xgic.cli.core import EnvironmentContext, DockerComposeController
-from xgic.cli.core.project import load_create_payload_config, ensure_payload_project
+from xgic.cli.core import EnvironmentContext, EnvironmentType
 from xgic.cli.utils.output import print_info, print_error
+from xgic.cli.app import CommandContext, build_parser, main
 ```
 
 | Module | Role |
 |--------|------|
-| `xgic.cli.core.environment` | Host / Dev Container / container detection |
-| `xgic.cli.core.docker` | Docker Compose controller (subprocess layer) |
-| `xgic.cli.core.project` | Project ensure / create helpers (Payload CMS-oriented defaults) |
-| `xgic.cli.utils.output` | Rich console helpers |
 | `xgic.cli.app` | Parser, plugin loading, dispatch |
+| `xgic.cli.core.environment` | Host / Dev Container / container detection |
+| `xgic.cli.utils.output` | Rich console helpers |
 
 ## Plugin entry points
-
-Packages can register CLI subcommands:
 
 ```toml
 [project.entry-points."xgic.cli.commands"]
@@ -70,7 +70,7 @@ def register(subparsers):
     p.set_defaults(func=run_example)
 ```
 
-Handlers may accept a `CommandContext` or legacy-style `(args, env=, docker=)`.
+Handlers may accept a `CommandContext` or `(args, env=...)`.
 
 ## License
 

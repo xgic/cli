@@ -18,8 +18,7 @@ dependencies = [
 keywords = [
     "xgic",
     "cli",
-    "orchestration",
-    "dev-containers",
+    "framework",
     "automation",
 ]
 classifiers = [

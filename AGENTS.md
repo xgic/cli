@@ -9,14 +9,21 @@ Public repository. Follow https://github.com/xgic/ai for multi-repo standards.
 - **Entrypoint:** `xgic`  
 - **Architecture:** [ADR-0005](https://github.com/xgic/ai/blob/main/docs/adr/0005-modular-xgic-cli-and-retirement-of-xde.md)
 
+This repo is **thin core only**. Do **not** add Payload CMS, Docker Compose product orchestration, or other domain command implementations here.
+
+| Concern | Package / repo |
+|---------|----------------|
+| Framework, env detect, output | **this repo** (`xgic.cli`) |
+| Dev Container / Compose / lifecycle | `xgic.cli.dev` → https://github.com/xgic/dev-cli |
+| Payload CMS project/setup/dev | `xgic.cli.payload` → https://github.com/xgic/payload-cms-cli |
+
 After full modular cutover, living docs use **XGIC CLI only** (no long-term dual brand with transitional entrypoints).
 
 ## Layout
 
 - `xgic.cli.app` — parser, entry-point plugins (`xgic.cli.commands`), dispatch  
-- `xgic.cli.core` — shared library (`environment`, `docker`, `project`)  
+- `xgic.cli.core.environment` — product-agnostic environment detection  
 - `xgic.cli.utils.output` — Rich helpers  
-- Domain commands live in separate packages (B3+), not in this core repo long-term
 
 ## Rules
 
@@ -26,7 +33,7 @@ After full modular cutover, living docs use **XGIC CLI only** (no long-term dual
 - Labels required on issues/PRs (`documentation`, `enhancement`, `bug`, `chore`, `standards` as appropriate).  
 - Python 3.14+; Apache-2.0; root `CODEOWNERS` (`@xgic`).  
 - No Makefiles for environment orchestration (CLI modules own that path).  
-- Prefer pure, importable helpers in `core/` over shell scripts.
+- Prefer pure, importable helpers; keep core free of product defaults (no Payload project names, no template compose project IDs).
 
 ## Local memory
 

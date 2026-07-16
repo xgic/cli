@@ -1,3 +1,7 @@
-"""XGIC top-level namespace package (PEP 420)."""
+"""XGIC top-level namespace package (multi-distribution)."""
+
+from pkgutil import extend_path
+
+__path__ = extend_path(__path__, __name__)
 
 __all__: list[str] = []

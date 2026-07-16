@@ -9,7 +9,6 @@ from dataclasses import dataclass
 from importlib.metadata import entry_points
 
 from xgic.cli import __version__
-from xgic.cli.core.docker import DockerComposeController
 from xgic.cli.core.environment import EnvironmentContext
 from xgic.cli.utils.output import print_error, print_info, print_panel
 
@@ -19,10 +18,13 @@ ENTRY_POINT_GROUP = "xgic.cli.commands"
 
 @dataclass(frozen=True)
 class CommandContext:
-    """Runtime context passed to registered command handlers."""
+    """Runtime context passed to registered command handlers.
+
+    Domain modules (``xgic.cli.dev``, ``xgic.cli.payload``, …) may attach
+    their own controllers after loading; core only guarantees environment.
+    """
 
     env: EnvironmentContext
-    docker: DockerComposeController
     args: argparse.Namespace
 
 
@@ -84,6 +86,7 @@ def build_parser(
         epilog=(
             "Domain modules register subcommands via entry points "
             f"({ENTRY_POINT_GROUP}). "
+            "Dev Container: xgic/dev-cli · Payload CMS: xgic/payload-cms-cli. "
             "Architecture: "
             "https://github.com/xgic/ai/blob/main/docs/adr/0005-modular-xgic-cli-and-retirement-of-xde.md"
         ),
@@ -127,14 +130,13 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     try:
         env = EnvironmentContext.detect()
-        docker = DockerComposeController(env)
-        ctx = CommandContext(env=env, docker=docker, args=args)
+        ctx = CommandContext(env=env, args=args)
 
-        # Handlers may accept CommandContext or (args, env=, docker=)
+        # Handlers may accept CommandContext or (args, env=...)
         try:
             result = func(ctx)
         except TypeError:
-            result = func(args, env=env, docker=docker)
+            result = func(args, env=env)
 
         if result is None:
             return 0
