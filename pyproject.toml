@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "xgic-cli"
-version = "0.2.0"
+version = "0.2.0rc1"
 description = "XGIC CLI — modular command-line framework for XGIC tools and environment orchestration (core package)."
 readme = "README.md"
 license = { text = "Apache-2.0" }
