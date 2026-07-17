@@ -33,7 +33,8 @@ After full modular cutover, living docs use **XGIC CLI only** (no long-term dual
 - Labels required on issues/PRs (`documentation`, `enhancement`, `bug`, `chore`, `standards` as appropriate).  
 - Python 3.14+; Apache-2.0; root `CODEOWNERS` (`@xgic`).  
 - No Makefiles for environment orchestration (CLI modules own that path).  
-- Prefer pure, importable helpers; keep core free of product defaults (no Payload project names, no template compose project IDs).
+- Prefer pure, importable helpers; keep core free of product defaults (no Payload project names, no template compose project IDs).  
+- **PyPI releases:** https://github.com/xgic/ai/blob/main/docs/python-package-release.md only (OIDC + `pypa/gh-action-pypi-publish`; `uv` build/smoke; no laptop publish).
 
 ## Local memory
 
