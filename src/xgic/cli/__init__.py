@@ -10,7 +10,7 @@ This package is **product-agnostic**:
 - Output helpers: ``xgic.cli.utils.output``
 
 Domain logic lives in separate packages:
-- Dev Container / Compose: ``xgic.cli.dev`` → https://github.com/xgic/dev-cli
+- Dev Container / Docker Compose: ``xgic.cli.dev`` → https://github.com/xgic/dev-cli
 - Payload CMS: ``xgic.cli.payload`` → https://github.com/xgic/payload-cms-cli
 """
 
