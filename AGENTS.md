@@ -14,7 +14,7 @@ This repo is **thin core only**. Do **not** add Payload CMS, Docker Compose prod
 | Concern | Package / repo |
 |---------|----------------|
 | Framework, env detect, output | **this repo** (`xgic.cli`) |
-| Dev Container / Compose / lifecycle | `xgic.cli.dev` → https://github.com/xgic/dev-cli |
+| Dev Container / Docker Compose / lifecycle | `xgic.cli.dev` → https://github.com/xgic/dev-cli |
 | Payload CMS project/setup/dev | `xgic.cli.payload` → https://github.com/xgic/payload-cms-cli |
 
 After full modular cutover, living docs use **XGIC CLI only** (no long-term dual brand with transitional entrypoints).
