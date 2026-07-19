@@ -1,6 +1,10 @@
 # XGIC CLI
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![CI](https://github.com/xgic/cli/actions/workflows/ci.yml/badge.svg)](https://github.com/xgic/cli/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/xgic-cli.svg)](https://pypi.org/project/xgic-cli/)
+[![Python](https://img.shields.io/pypi/pyversions/xgic-cli.svg)](https://pypi.org/project/xgic-cli/)
+[![Release](https://img.shields.io/github/v/release/xgic/cli)](https://github.com/xgic/cli/releases)
 
 **XGIC CLI** is the modular command-line framework for XGIC tools.
 
@@ -29,13 +33,19 @@ Tags: `vX.Y.ZrcN` → TestPyPI; `vX.Y.Z` → PyPI. Requires GitHub Environments 
 
 - Python **3.14+**
 
-## Install (development)
+## Install
 
 ```bash
-python -m pip install -e ".[dev]"
+uv pip install xgic-cli
 xgic --help
 xgic --version
 xgic info
+```
+
+### Development (editable)
+
+```bash
+uv pip install -e ".[dev]"
 ```
 
 ## Console commands (core)
