@@ -31,6 +31,7 @@ After full modular cutover, living docs use **XGIC CLI only** (no long-term dual
 - Human code review in the GitHub UI before merge to `main`.  
 - Dedicated issue-number branches; Conventional Commits.  
 - Labels required on issues/PRs (`documentation`, `enhancement`, `bug`, `chore`, `standards` as appropriate).  
+- **Before close:** verify Markdown checklist items on issues/PRs; mark completed items `- [x]`; do not close with unchecked required items unless a human documents a waiver.  
 - Python 3.14+; Apache-2.0; root `CODEOWNERS` (`@xgic`).  
 - No Makefiles for environment orchestration (CLI modules own that path).  
 - Prefer pure, importable helpers; keep core free of product defaults (no Payload project names, no template compose project IDs).  
