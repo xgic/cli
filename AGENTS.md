@@ -27,6 +27,8 @@ After full modular cutover, living docs use **XGIC CLI only** (no long-term dual
 
 ## Rules
 
+
+**Public GitHub writes:** Before `gh issue create|edit`, `gh pr create|edit`, or any public comment on this repository, complete the **mandatory public-safe draft gate** in https://github.com/xgic/ai/blob/main/docs/BASE-STANDARDS-FOR-ORCHESTRATED-REPOS.md (fictional placeholders only; never name private hosts, private projects, or private tracker IDs). Optional helper from the hub clone: `python scripts/public-safe-scan.py path/to/draft.md`.
 - Public-safe content only (no private hosts, private tracker IDs, internal paths).  
 - Human code review in the GitHub UI before merge to `main`.  
 - Dedicated issue-number branches; Conventional Commits.  
@@ -40,3 +42,4 @@ After full modular cutover, living docs use **XGIC CLI only** (no long-term dual
 ## Local memory
 
 Temporary status reports only under `.xgic/` (gitignored). Platform issues/PRs are authoritative.
+
