@@ -82,14 +82,6 @@ def build_parser(
             "XGIC CLI - modular command-line framework for XGIC tools "
             "and environment orchestration."
         ),
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=(
-            "Domain modules register subcommands via entry points "
-            f"({ENTRY_POINT_GROUP}). "
-            "Dev Container: xgic/dev-cli · Payload CMS: xgic/payload-cms-cli. "
-            "Architecture: "
-            "https://github.com/xgic/ai/blob/main/docs/adr/0005-modular-xgic-cli-and-retirement-of-xde.md"
-        ),
     )
     parser.add_argument(
         "--version",
