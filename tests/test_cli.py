@@ -9,7 +9,7 @@ from xgic.cli.app import build_parser, main
 
 
 def test_version_constant() -> None:
-    assert __version__ == "0.2.1rc1"
+    assert __version__ == "0.2.1"
 
 
 def test_help_exits_zero() -> None:
