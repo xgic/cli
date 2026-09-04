@@ -141,8 +141,10 @@ Handlers may accept a `CommandContext` or `(args, env=...)`.
 
 ## Status and publishing
 
-**0.2.0 — thin core.** Framework + environment detection + output helpers. Domain modules ship
-separately.
+**0.2.1 — usage.** `xgic` with no arguments prints usage only (no architecture
+epilogue). Domain modules still ship separately.
+
+**0.2.0 — thin core.** Framework + environment detection + output helpers.
 
 **Publishing to PyPI:** follow
 [python-package-release.md](https://github.com/xgic/ai/blob/main/docs/python-package-release.md)
