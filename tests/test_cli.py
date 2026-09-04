@@ -42,7 +42,14 @@ def test_info_command(capsys: pytest.CaptureFixture[str]) -> None:
     assert "Environment" in out or "Local host" in out or "Dev Container" in out
 
 
-def test_help_mentions_domain_modules(capsys: pytest.CaptureFixture[str]) -> None:
-    main([])
+def test_help_has_no_architecture_epilogue(
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    assert main([]) == 0
     out = capsys.readouterr().out
-    assert "xgic.cli.commands" in out or "entry points" in out.lower() or "Domain" in out
+    assert "usage: xgic" in out
+    assert "Available commands" in out or "COMMAND" in out
+    assert "xgic.cli.commands" not in out
+    assert "retirement-of-xde" not in out
+    parser = build_parser(include_plugins=False)
+    assert parser.epilog in (None, "")
