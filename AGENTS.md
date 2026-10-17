@@ -32,7 +32,7 @@ After full modular cutover, living docs use **XGIC CLI only** (no long-term dual
 - Public-safe content only (no private hosts, private tracker IDs, internal paths).  
 - Human code review in the GitHub UI before merge to `main`.  
 - Dedicated issue-number branches; Conventional Commits.  
-- Labels required on issues/PRs (`documentation`, `enhancement`, `bug`, `chore`, `standards` as appropriate).  
+- **Labels (mandatory):** Every issue and pull request gets exactly one type label in the create call: `bug`, `enhancement`, `documentation`, `standards`, or `chore`. Welcome Discussion posts use `welcome` and `documentation`. Do not put scoped GitLab labels on GitHub. https://github.com/xgic/ai/blob/main/docs/community-health.md#labels-required  
 - **Before close:** verify Markdown checklist items on issues/PRs; mark completed items `- [x]`; do not close with unchecked required items unless a human documents a waiver.  
 - Python 3.14+; Apache-2.0; root `CODEOWNERS` (`@xgic`).  
 - No Makefiles for environment orchestration (CLI modules own that path).  
