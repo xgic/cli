@@ -105,6 +105,11 @@ def build_parser(
     return parser
 
 
+def unexpected_error_text(exc: BaseException) -> str:
+    """Name the exception type. ``str(MemoryError())`` is empty."""
+    return f"Unexpected error: {type(exc).__name__}: {exc}"
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Run the XGIC CLI entrypoint."""
     argv_list = list(argv) if argv is not None else None
@@ -137,7 +142,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print_info("Interrupted by user")
         return 130
     except Exception as exc:
-        print_error(f"Unexpected error: {exc}")
+        print_error(unexpected_error_text(exc))
         if getattr(args, "debug", False) or "--debug" in (
             argv_list or sys.argv
         ):
