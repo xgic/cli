@@ -141,6 +141,9 @@ Handlers may accept a `CommandContext` or `(args, env=...)`.
 
 ## Status and publishing
 
+**0.2.2 — errors.** An unexpected error includes the exception type.
+`MemoryError` no longer prints a blank message.
+
 **0.2.1 — usage.** `xgic` with no arguments prints usage only (no architecture
 epilogue). Domain modules still ship separately.
 
