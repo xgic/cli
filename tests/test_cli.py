@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import argparse
+
 import pytest
 
 from xgic.cli import __version__
-from xgic.cli.app import build_parser, main
+from xgic.cli.app import CommandContext, _call_handler, build_parser, main
+from xgic.cli.core.environment import EnvironmentContext
 
 
 def test_version_constant() -> None:
@@ -33,6 +36,33 @@ def test_unknown_command_errors() -> None:
 
 def test_parser_prog() -> None:
     assert build_parser(include_plugins=False).prog == "xgic"
+
+
+def test_namespace_handler_receives_parsed_arguments() -> None:
+    seen: dict[str, object] = {}
+
+    def restore(args: argparse.Namespace) -> int:
+        seen["archive"] = args.archive
+        seen["yes"] = args.yes
+        return 4
+
+    parsed = argparse.Namespace(archive="/tmp/a.tar.zst", yes=True)
+    ctx = CommandContext(env=EnvironmentContext.detect(), args=parsed)
+    assert _call_handler(restore, ctx, parsed) == 4
+    assert seen == {"archive": "/tmp/a.tar.zst", "yes": True}
+
+
+def test_context_handler_receives_command_context() -> None:
+    seen: dict[str, str] = {}
+
+    def info(ctx: CommandContext) -> int:
+        seen["type"] = type(ctx).__name__
+        return 0
+
+    parsed = argparse.Namespace()
+    ctx = CommandContext(env=EnvironmentContext.detect(), args=parsed)
+    assert _call_handler(info, ctx, parsed) == 0
+    assert seen["type"] == "CommandContext"
 
 
 def test_info_command(capsys: pytest.CaptureFixture[str]) -> None:
