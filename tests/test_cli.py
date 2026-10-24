@@ -12,7 +12,7 @@ from xgic.cli.core.environment import EnvironmentContext
 
 
 def test_version_constant() -> None:
-    assert __version__ == "0.2.2"
+    assert __version__ == "0.2.3"
 
 
 def test_help_exits_zero() -> None:
