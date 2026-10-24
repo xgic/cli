@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import argparse
+import inspect
 import sys
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from importlib.metadata import entry_points
+from typing import get_type_hints
 
 from xgic.cli import __version__
 from xgic.cli.core.environment import EnvironmentContext
@@ -110,6 +112,34 @@ def unexpected_error_text(exc: BaseException) -> str:
     return f"Unexpected error: {type(exc).__name__}: {exc}"
 
 
+def _call_handler(
+    func: CommandFunc,
+    ctx: CommandContext,
+    args: argparse.Namespace,
+) -> int | None:
+    """Call a handler with the object its first parameter declares.
+
+    A ``Namespace`` handler must not receive ``CommandContext``. That object
+    has no ``archive`` or ``yes`` attributes, so a restore would ignore the
+    flags and refuse the command.
+    """
+    try:
+        hints = get_type_hints(func)
+    except Exception:
+        hints = {}
+    names = list(inspect.signature(func).parameters)
+    if names:
+        expected = hints.get(names[0])
+        if expected is CommandContext:
+            return func(ctx)
+        if expected is argparse.Namespace:
+            return func(args)
+    try:
+        return func(ctx)
+    except TypeError:
+        return func(args, env=ctx.env)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     """Run the XGIC CLI entrypoint."""
     argv_list = list(argv) if argv is not None else None
@@ -129,11 +159,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         env = EnvironmentContext.detect()
         ctx = CommandContext(env=env, args=args)
 
-        # Handlers may accept CommandContext or (args, env=...)
-        try:
-            result = func(ctx)
-        except TypeError:
-            result = func(args, env=env)
+        result = _call_handler(func, ctx, args)
 
         if result is None:
             return 0
