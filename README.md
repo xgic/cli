@@ -154,7 +154,7 @@ epilogue). Domain modules still ship separately.
 (TestPyPI RC + smoke → PyPI via OIDC Trusted Publishing; `uv` build/smoke).
 Tags: `vX.Y.ZrcN` → TestPyPI; `vX.Y.Z` → PyPI. Requires GitHub Environments `testpypi` / `pypi`
 and matching Trusted Publishers on the index.
-The release milestone is titled `X.Y.Z`, matching the published version. Set it on every issue and pull request in that release. GitHub does not copy the issue milestone onto the pull request. The candidate and the final publish share it.
+The release milestone follows the work-tracking page.
 [Work tracking](https://github.com/xgic/ai/blob/main/docs/work-tracking-and-checklists.md).
 
 ### Requirements
